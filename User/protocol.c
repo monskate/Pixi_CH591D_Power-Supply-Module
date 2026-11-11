@@ -60,15 +60,15 @@ void Send_Packet(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4)
     UART0_SendString(buf, 7);
 }
 
-void Send_BLE(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4)
+static void Send_BLE(uint8_t *packet, uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4)
 {
-    device_info_buf[0] = 0xAA;
-    device_info_buf[1] = 0x55;
-    device_info_buf[2] = d1;
-    device_info_buf[3] = d2;
-    device_info_buf[4] = d3;
-    device_info_buf[5] = d4;
-    device_info_buf[6] = checksum(device_info_buf);
+    packet[0] = 0xAA;
+    packet[1] = 0x55;
+    packet[2] = d1;
+    packet[3] = d2;
+    packet[4] = d3;
+    packet[5] = d4;
+    packet[6] = checksum(packet);
 }
 void Send_Next_BLE(void)
 {
@@ -128,9 +128,10 @@ void Send_Next_BLE(void)
 
             }
             exe = id;
+            uint8_t blePacket[PACKET_LEN];
             Send_Packet(0x08,start,id,node->type);
-            Send_BLE(0x08,start,id,node->type);
-            central_sendHexToChar(7);
+            Send_BLE(blePacket, 0x08,start,id,node->type);
+            central_sendData(blePacket, sizeof(blePacket));
 
             // 等待 ESP32 通知
             return;

@@ -18,13 +18,11 @@ User/central.o: ../User/central.c \
  d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/CH59x_usbdev.h \
  d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/CH59x_usbhost.h \
  d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/ISP592.h \
- d:/work/kit\ codit/CH591D_master/Profile/include/gattprofile.h \
  d:/work/kit\ codit/CH591D_master/User/include/central.h \
- d:/work/kit\ codit/CH591D_master/User/include/usb.h \
- d:/work/kit\ codit/CH591D_master/User/include/sys_time.h \
- d:/work/kit\ codit/CH591D_master/User/include/rgbled.h \
+ d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/CH59x_flash.h \
  d:/work/kit\ codit/CH591D_master/User/include/protocol.h \
- d:/work/kit\ codit/CH591D_master/User/include/central.h
+ d:/work/kit\ codit/CH591D_master/User/include/central.h \
+ d:/work/kit\ codit/CH591D_master/User/include/usb.h
 
 d:/work/kit\ codit/CH591D_master/HAL/include/CONFIG.h:
 
@@ -64,16 +62,12 @@ d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/CH59x_usbhost.h:
 
 d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/ISP592.h:
 
-d:/work/kit\ codit/CH591D_master/Profile/include/gattprofile.h:
-
 d:/work/kit\ codit/CH591D_master/User/include/central.h:
 
-d:/work/kit\ codit/CH591D_master/User/include/usb.h:
-
-d:/work/kit\ codit/CH591D_master/User/include/sys_time.h:
-
-d:/work/kit\ codit/CH591D_master/User/include/rgbled.h:
+d:/work/kit\ codit/CH591D_master/StdPeriphDriver/inc/CH59x_flash.h:
 
 d:/work/kit\ codit/CH591D_master/User/include/protocol.h:
 
 d:/work/kit\ codit/CH591D_master/User/include/central.h:
+
+d:/work/kit\ codit/CH591D_master/User/include/usb.h:

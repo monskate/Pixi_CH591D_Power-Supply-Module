@@ -16,8 +16,8 @@ void rgbled_init() {
     GPIOA_ModeCfg(B_ledpin, GPIO_ModeOut_PP_5mA);
     GPIOA_SetBits(B_ledpin);
 
-    TMR0_TimerInit(FREQ_SYS / 20);         // …Ë÷√∂® ± ±º‰ 50ms
-    TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END); // ø™∆Ù÷–∂œ
+    TMR0_TimerInit(FREQ_SYS / 20);         // ËÆæÁΩÆÂÆöÊó∂Êó∂Èó¥ 50ms
+    TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END); // ÂºÄÂêØ‰∏≠Êñ≠
     PFIC_EnableIRQ(TMR0_IRQn);
 }
 
@@ -65,17 +65,17 @@ void rgbled_setmod (uint8_t mode) {
 /*********************************************************************
  * @fn      TMR0_IRQHandler
  *
- * @brief   TMR0÷–∂œ∫Ø ˝
+ * @brief   TMR0‰∏≠Êñ≠ÂáΩÊï∞
  *
  * @return  none
  */
 __INTERRUPT
 __HIGH_CODE
-void TMR0_IRQHandler(void) // TMR0 ∂® ±÷–∂œ
+void TMR0_IRQHandler(void) // TMR0 ÂÆöÊó∂‰∏≠Êñ≠
 {
     if(TMR0_GetITFlag(TMR0_3_IT_CYC_END))
     {
-        TMR0_ClearITFlag(TMR0_3_IT_CYC_END); // «Â≥˝÷–∂œ±Í÷æ
+        TMR0_ClearITFlag(TMR0_3_IT_CYC_END); // Ê∏ÖÈô§‰∏≠Êñ≠Ê†áÂøó
         if (rgbmode == 5){
             GPIOB_InverseBits(R_ledpin);
         }

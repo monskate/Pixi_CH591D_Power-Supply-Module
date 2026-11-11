@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USB IAP例程
+ * Description        : USB IAP渚嬬▼
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -29,13 +29,13 @@
 #define FLAG_USER_CALL_IAP   0x55
 #define FLAG_USER_CALL_APP   0xaa
 
-/* 存放在DataFlash地址，不能占用蓝牙的位置 */
+/* 瀛樻斁鍦―ataFlash鍦板潃锛屼笉鑳藉崰鐢ㄨ摑鐗欑殑浣嶇疆 */
 #define IAP_FLAG_DATAFLASH_ADD               0
 
-/* 存放在DataFlash里的OTA信息 */
+/* 瀛樻斁鍦―ataFlash閲岀殑OTA淇℃伅 */
 typedef struct
 {
-    unsigned char ImageFlag;            //记录的当前的image标志
+    unsigned char ImageFlag;            //璁板綍鐨勫綋鍓嶇殑image鏍囧織
     unsigned char Revd[3];
 } IAPDataFlashInfo_t;
 

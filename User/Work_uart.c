@@ -8,10 +8,10 @@ uint8_t RxBuff[100];
 
 void Uart_Init(void)
 {
-    /* ÅäÖÃ´®¿Ú1£ºÏÈÅäÖÃIO¿ÚÄ£Ê½£¬ÔÙÅäÖÃ´®¿Ú */
+    /* é…ç½®ä¸²å£1ï¼šå…ˆé…ç½®IOå£æ¨¡å¼ï¼Œå†é…ç½®ä¸²å£ */
     GPIOA_SetBits(GPIO_Pin_14);
-    GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_PU);      // RXD-ÅäÖÃÉÏÀ­ÊäÈë
-    GPIOA_ModeCfg(GPIO_Pin_14, GPIO_ModeOut_PP_5mA); // TXD-ÅäÖÃÍÆÍìÊä³ö£¬×¢ÒâÏÈÈÃIO¿ÚÊä³ö¸ßµçÆ½
+    GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_PU);      // RXD-é…ç½®ä¸Šæ‹‰è¾“å…¥
+    GPIOA_ModeCfg(GPIO_Pin_14, GPIO_ModeOut_PP_5mA); // TXD-é…ç½®æŽ¨æŒ½è¾“å‡ºï¼Œæ³¨æ„å…ˆè®©IOå£è¾“å‡ºé«˜ç”µå¹³
     GPIOPinRemap(ENABLE,RB_PIN_UART0);
     UART0_DefInit();
 
@@ -24,7 +24,7 @@ void Uart_Init(void)
 /*********************************************************************
  * @fn      UART0_IRQHandler
  *
- * @brief   UART0ÖÐ¶Ïº¯Êý
+ * @brief   UART0ä¸­æ–­å‡½æ•°
  *
  * @return  none
  */

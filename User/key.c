@@ -13,7 +13,7 @@ void Key_Init (void)
 }
 
 
-// »ñÈ¡ À¶ÑÀÅä¶Ô°´¼ü×´Ì¬ 1:°´ÏÂ
+// è·å– è“ç‰™é…å¯¹æŒ‰é”®çŠ¶æ€ 1:æŒ‰ä¸‹
 uint8_t get_pairKey()
 {
     // GPIOB_ModeCfg (GPIO_Pin_22, GPIO_ModeIN_PU);

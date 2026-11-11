@@ -4,16 +4,16 @@
 static volatile uint32_t systick_ms = 0;
 
 
-// �����Ҫ micros ֧�֣�����һ������ SysTick �Ӽ���
+// 如果需要 micros 支持，添加一个额外 SysTick 子计数
 // static volatile uint32_t last_tick_val = 0;
 
-//��ʼ��
+//初始化
 void sys_time_init(void)
 {
-    // ��ʼ��Ϊ 1ms SysTick
-    SysTick_Config(FREQ_SYS / 1000);  // ���� 60MHz �� = 60000
+    // 初始化为 1ms SysTick
+    SysTick_Config(FREQ_SYS / 1000);  // 例如 60MHz 下 = 60000
 
-    // // �����ж���������� SDK ������Ҫд SR
+    // // 开启中断清除，部分 SDK 可能需要写 SR
     // SysTick->SR = 0;
 }
 
@@ -36,5 +36,5 @@ void SysTick_Handler(void)
 {
     ++systick_ms;
 
-    SysTick->SR = 0;  // ����жϱ�־λ
+    SysTick->SR = 0;  // 清除中断标志位
 }

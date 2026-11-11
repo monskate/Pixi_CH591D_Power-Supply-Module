@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/11/12
- * Description        : 观察应用主函数及任务系统初始化
+ * Description        : ?????????????????????????????????
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -38,14 +38,14 @@ extern "C" {
 #define START_WRITE_CCCD_EVT          0x0080
 #define START_READ_RSSI_EVT           0x0100
 #define ESTABLISH_LINK_TIMEOUT_EVT    0x0200
-// 通用发送缓存，最大
+// ??????????棬????
 #define TX_BUF_SIZE 7
 
 // UUID
 #define UUID_LEN_16 2
 #define UUID_LEN_128 16
 
-// BLE状态：已连接 且 不在服务发现中
+// BLE???????????? ???? ???????????
 #define BLE_IS_READY()    ((central_isState() == 1) && (central_isDiscState() == 0))
 /*********************************************************************
  * MACROS
@@ -55,14 +55,13 @@ extern "C" {
  * FUNCTIONS
  */
 extern uint8_t isPeerAddrEmpty;
-extern uint8_t device_info_buf[TX_BUF_SIZE];
 /*
  * Task Initialization for the BLE Application
  */
 extern void Central_Init(void);
 
 // extern void central_writeData (uint8_t *val, size_t size);
-extern void central_sendHexToChar (size_t size);
+extern void central_sendData(const uint8_t *data, uint8_t size);
 
 extern uint8_t central_isDiscState();
 extern uint8_t central_isState();

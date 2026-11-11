@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USB IAPÀı³Ì
+ * Description        : USB IAPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for
@@ -12,7 +12,7 @@
 #include "iap.h"
 #include "sys_time.h"
 
-#undef pSetupReqPak /* ½â¾öºÍÍâÉè¿âÍ·ÎÄ¼ş³åÍ»  */
+#undef pSetupReqPak /* è§£å†³å’Œå¤–è®¾åº“å¤´æ–‡ä»¶å†²çª  */
 #define pSetupReqPak ((PUSB_SETUP_REQ)EP0_Databuf)
 
 #if USB_IAP_0
@@ -20,7 +20,7 @@ void myDevEP2_IN_Deal (uint8_t s);
 void myDevEP2_OUT_Deal (uint8_t l);
 
 #define DevEP0SIZE 64
-// Éè±¸ÃèÊö·û
+// è®¾å¤‡æè¿°ç¬¦
 const uint8_t MyDevDescr[] =
     {
         0x12,
@@ -34,7 +34,7 @@ const uint8_t MyDevDescr[] =
         0x48,
         0x43,
         0xe0,
-        0x55,  // ³§ÉÌIDºÍ²úÆ·ID
+        0x55,  // å‚å•†IDå’Œäº§å“ID
         0x00,
         0x01,
         0x00,
@@ -42,19 +42,19 @@ const uint8_t MyDevDescr[] =
         0x00,
         0x01,
 };
-// ÅäÖÃÃèÊö·û
+// é…ç½®æè¿°ç¬¦
 const uint8_t MyCfgDescr[] =
     {
         0x09, 0x02, 0x20, 0x00, 0x01, 0x01, 0x00, 0x80, 0x32, 0x09, 0x04, 0x00, 0x00,
         0x02, 0xFF, 0x80, 0x55, 0x00, 0x07, 0x05, 0x82, 0x02, 0x40, 0x00, 0x00,
         0x07, 0x05, 0x02, 0x02, 0x40, 0x00, 0x00};
-// ÓïÑÔÃèÊö·û
+// è¯­è¨€æè¿°ç¬¦
 const uint8_t MyLangDescr[] =
     {0x04, 0x03, 0x09, 0x04};
-// ³§¼ÒĞÅÏ¢
+// å‚å®¶ä¿¡æ¯
 const uint8_t MyManuInfo[] =
     {0x0E, 0x03, 'w', 0, 'c', 0, 'h', 0, '.', 0, 'c', 0, 'n', 0};
-// ²úÆ·ĞÅÏ¢
+// äº§å“ä¿¡æ¯
 const uint8_t MyProdInfo[] =
     {0x0C, 0x03, 'C', 0, 'H', 0, '5', 0, '9', 0, 'x', 0};
 
@@ -65,7 +65,7 @@ uint16_t SetupReqLen;
 const uint8_t *IAP_pDescr;
 
 
-__attribute__ ((aligned (4))) uint8_t g_write_buf[256 + 64];  // Ã¿´ÎÂú256×Ö½ÚÔÙĞ´flash£¬ÌáÉıËÙ¶È
+__attribute__ ((aligned (4))) uint8_t g_write_buf[256 + 64];  // æ¯æ¬¡æ»¡256å­—èŠ‚å†å†™flashï¼Œæå‡é€Ÿåº¦
 volatile uint16_t g_buf_write_ptr = 0;
 volatile uint32_t g_flash_write_ptr = 0;
 uint32_t g_tcnt;
@@ -74,9 +74,9 @@ __attribute__ ((aligned (4))) iap_cmd_t g_iap_cmd;
 /*********************************************************************
  * @fn      SetSysClock
  *
- * @brief   ÅäÖÃÏµÍ³ÔËĞĞÊ±ÖÓ60Mhz, 0x48
+ * @brief   é…ç½®ç³»ç»Ÿè¿è¡Œæ—¶é’Ÿ60Mhz, 0x48
  *
- * @param   sc      - ÏµÍ³Ê±ÖÓÔ´Ñ¡Ôñ refer to SYS_CLKTypeDef
+ * @param   sc      - ç³»ç»Ÿæ—¶é’Ÿæºé€‰æ‹© refer to SYS_CLKTypeDef
  *
  * @return  none
  */
@@ -99,7 +99,7 @@ void mySetSysClock()
     R8_FLASH_CFG = 0X52;
     sys_safe_access_disable();
 
-    // ¸ü¸ÄFLASH clkµÄÇı¶¯ÄÜÁ¦
+    // æ›´æ”¹FLASH clkçš„é©±åŠ¨èƒ½åŠ›
     sys_safe_access_enable();
     R8_PLL_CONFIG |= 1 << 7;
     sys_safe_access_disable();
@@ -108,7 +108,7 @@ void mySetSysClock()
 
 #endif
 
-/******** ÓÃ»§×Ô¶¨Òå·ÖÅä¶ËµãRAM ****************************************/
+/******** ç”¨æˆ·è‡ªå®šä¹‰åˆ†é…ç«¯ç‚¹RAM ****************************************/
 __attribute__ ((aligned (4))) uint8_t EP0_Databuf[64 + 64 + 64];  // ep0(64)+ep4_out(64)+ep4_in(64)
 __attribute__ ((aligned (4))) uint8_t EP1_Databuf[64 + 64];       // ep1_out(64)+ep1_in(64)
 __attribute__ ((aligned (4))) uint8_t EP2_Databuf[64 + 64];       // ep2_out(64)+ep2_in(64)
@@ -118,13 +118,13 @@ __HIGH_CODE
 void BootMode_CheckAndEnter (uint32_t hold_ms)  //
 {
     DelayMs (100);
-    // boot °´¼ü
+    // boot æŒ‰é”®
     GPIOA_ModeCfg (GPIO_Pin_12, GPIO_ModeIN_PU);
     // GPIOA_SetBits (GPIO_Pin_12);
 
     uint32_t pairKeyTime = 0;
 
-    uint8_t now = (!GPIOA_ReadPortPin (GPIO_Pin_12));  // 1=°´ÏÂ, 0=ËÉ¿ª
+    uint8_t now = (!GPIOA_ReadPortPin (GPIO_Pin_12));  // 1=æŒ‰ä¸‹, 0=æ¾å¼€
 
     if (1)
     {
@@ -134,27 +134,27 @@ void BootMode_CheckAndEnter (uint32_t hold_ms)  //
         // }
 
 
-        // while (pairKeyTime < hold_ms)              // ÀÛ¼ÆÊ±¼äÎ´´ïµ½
+        // while (pairKeyTime < hold_ms)              // ç´¯è®¡æ—¶é—´æœªè¾¾åˆ°
         // {
-        //     if (!GPIOA_ReadPortPin (GPIO_Pin_12))  // °´¼üÈÔÈ»°´ÏÂ£¨µÍµçÆ½£©
+        //     if (!GPIOA_ReadPortPin (GPIO_Pin_12))  // æŒ‰é”®ä»ç„¶æŒ‰ä¸‹ï¼ˆä½ç”µå¹³ï¼‰
         //     {
-        //         DelayMs (10);                      // ¶ÂÈû 10ms
-        //         pairKeyTime += 10;                 // ÀÛ¼ÓÒÑ°´ÏÂÊ±¼ä
+        //         DelayMs (10);                      // å µå¡ 10ms
+        //         pairKeyTime += 10;                 // ç´¯åŠ å·²æŒ‰ä¸‹æ—¶é—´
         //     }
         //     else
         //     {
-        //         return;  // °´¼üËÉ¿ª£¬ÍË³öÑ­»·
+        //         return;  // æŒ‰é”®æ¾å¼€ï¼Œé€€å‡ºå¾ªç¯
         //     }
         // }
 
 
         if (!GPIOA_ReadPortPin (GPIO_Pin_12))
         {
-            /* USB³õÊ¼»¯ */
-            R8_USB_CTRL = 0x00;                                                             // ÏÈÉè¶¨Ä£Ê½,È¡Ïû RB_UC_CLR_ALL
+            /* USBåˆå§‹åŒ– */
+            R8_USB_CTRL = 0x00;                                                             // å…ˆè®¾å®šæ¨¡å¼,å–æ¶ˆ RB_UC_CLR_ALL
 
-            R8_UEP4_1_MOD = RB_UEP4_RX_EN | RB_UEP4_TX_EN | RB_UEP1_RX_EN | RB_UEP1_TX_EN;  // ¶Ëµã4 OUT+IN,¶Ëµã1 OUT+IN
-            R8_UEP2_3_MOD = RB_UEP2_RX_EN | RB_UEP2_TX_EN | RB_UEP3_RX_EN | RB_UEP3_TX_EN;  // ¶Ëµã2 OUT+IN,¶Ëµã3 OUT+IN
+            R8_UEP4_1_MOD = RB_UEP4_RX_EN | RB_UEP4_TX_EN | RB_UEP1_RX_EN | RB_UEP1_TX_EN;  // ç«¯ç‚¹4 OUT+IN,ç«¯ç‚¹1 OUT+IN
+            R8_UEP2_3_MOD = RB_UEP2_RX_EN | RB_UEP2_TX_EN | RB_UEP3_RX_EN | RB_UEP3_TX_EN;  // ç«¯ç‚¹2 OUT+IN,ç«¯ç‚¹3 OUT+IN
 
             R16_UEP0_DMA = (uint16_t)(uint32_t)EP0_Databuf;
             R16_UEP1_DMA = (uint16_t)(uint32_t)EP1_Databuf;
@@ -168,15 +168,15 @@ void BootMode_CheckAndEnter (uint32_t hold_ms)  //
             R8_UEP4_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
 
             R8_USB_DEV_AD = 0x00;
-            R8_USB_CTRL = RB_UC_DEV_PU_EN | RB_UC_INT_BUSY | RB_UC_DMA_EN;  // Æô¶¯USBÉè±¸¼°DMA£¬ÔÚÖĞ¶ÏÆÚ¼äÖĞ¶Ï±êÖ¾Î´Çå³ıÇ°×Ô¶¯·µ»ØNAK
-            R16_PIN_ANALOG_IE |= RB_PIN_USB_IE | RB_PIN_USB_DP_PU;          // ·ÀÖ¹USB¶Ë¿Ú¸¡¿Õ¼°ÉÏÀ­µç×è
-            R8_USB_INT_FG = 0xFF;                                           // ÇåÖĞ¶Ï±êÖ¾
-            R8_UDEV_CTRL = RB_UD_PD_DIS | RB_UD_PORT_EN;                    // ÔÊĞíUSB¶Ë¿Ú
-            R8_USB_INT_EN = 0;                                              // ½ûÖ¹usbÖĞ¶Ï£¬²ÉÓÃ²éÑ¯·½Ê½
+            R8_USB_CTRL = RB_UC_DEV_PU_EN | RB_UC_INT_BUSY | RB_UC_DMA_EN;  // å¯åŠ¨USBè®¾å¤‡åŠDMAï¼Œåœ¨ä¸­æ–­æœŸé—´ä¸­æ–­æ ‡å¿—æœªæ¸…é™¤å‰è‡ªåŠ¨è¿”å›NAK
+            R16_PIN_ANALOG_IE |= RB_PIN_USB_IE | RB_PIN_USB_DP_PU;          // é˜²æ­¢USBç«¯å£æµ®ç©ºåŠä¸Šæ‹‰ç”µé˜»
+            R8_USB_INT_FG = 0xFF;                                           // æ¸…ä¸­æ–­æ ‡å¿—
+            R8_UDEV_CTRL = RB_UD_PD_DIS | RB_UD_PORT_EN;                    // å…è®¸USBç«¯å£
+            R8_USB_INT_EN = 0;                                              // ç¦æ­¢usbä¸­æ–­ï¼Œé‡‡ç”¨æŸ¥è¯¢æ–¹å¼
 
 
             R8_USB_CTRL = RB_UC_RESET_SIE;
-            R16_PIN_ANALOG_IE &= ~(RB_PIN_USB_DP_PU | RB_PIN_USB_IE);  // ·ÀÖ¹USB¶Ë¿Ú¸¡¿Õ¼°ÉÏÀ­µç×è
+            R16_PIN_ANALOG_IE &= ~(RB_PIN_USB_DP_PU | RB_PIN_USB_IE);  // é˜²æ­¢USBç«¯å£æµ®ç©ºåŠä¸Šæ‹‰ç”µé˜»
             DelayMs (200);
             jumpApp();
             while (1)
@@ -192,7 +192,7 @@ void BootMode_CheckAndEnter (uint32_t hold_ms)  //
 /*********************************************************************
  * @fn      USB_DevTransProcess
  *
- * @brief   IAP USBÖ÷Ñ­»·,³ÌĞò·ÅramÖĞÔËĞĞ£¬ÌáÉıËÙ¶È.
+ * @brief   IAP USBä¸»å¾ªç¯,ç¨‹åºæ”¾ramä¸­è¿è¡Œï¼Œæå‡é€Ÿåº¦.
  *
  * @param   None.
  *
@@ -206,13 +206,13 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
     intflag = R8_USB_INT_FG;
     if (intflag & RB_UIF_TRANSFER)
     {
-        g_tcnt = 0;  // USBÓĞÊı¾İ£¬Çå¿Õ³¬Ê±¼ÆÊı
+        g_tcnt = 0;  // USBæœ‰æ•°æ®ï¼Œæ¸…ç©ºè¶…æ—¶è®¡æ•°
         if (intflag & RB_U_IS_NAK)
         {
         }
         else
         {
-            // ·ÖÎö²Ù×÷ÁîÅÆºÍ¶ËµãºÅ
+            // åˆ†ææ“ä½œä»¤ç‰Œå’Œç«¯ç‚¹å·
             switch (R8_USB_INT_ST & (MASK_UIS_TOKEN | MASK_UIS_ENDP))
             {
                 case UIS_TOKEN_IN | 2:
@@ -222,7 +222,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                 {
                     if (R8_USB_INT_ST & RB_UIS_TOG_OK)
                     {
-                        // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+                        // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
                         len = R8_USB_RX_LEN;
                         my_memcpy (g_iap_cmd.other.buf, EP2_Databuf, len);
                         myDevEP2_OUT_Deal (len);
@@ -240,19 +240,19 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                     switch (IAP_SetupReqCode)
                     {
                         case USB_GET_DESCRIPTOR:
-                            len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // ±¾´Î´«Êä³¤¶È
-                            my_memcpy (EP0_Databuf, IAP_pDescr, len);                    /* ¼ÓÔØÉÏ´«Êı¾İ */
+                            len = SetupReqLen >= DevEP0SIZE ? DevEP0SIZE : SetupReqLen;  // æœ¬æ¬¡ä¼ è¾“é•¿åº¦
+                            my_memcpy (EP0_Databuf, IAP_pDescr, len);                    /* åŠ è½½ä¸Šä¼ æ•°æ® */
                             SetupReqLen -= len;
                             IAP_pDescr += len;
                             R8_UEP0_T_LEN = len;
-                            R8_UEP0_CTRL ^= RB_UEP_T_TOG;  // ·­×ª
+                            R8_UEP0_CTRL ^= RB_UEP_T_TOG;  // ç¿»è½¬
                             break;
                         case USB_SET_ADDRESS:
                             R8_USB_DEV_AD = (R8_USB_DEV_AD & RB_UDA_GP_BIT) | SetupReqLen;
                             R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
                             break;
                         default:
-                            R8_UEP0_T_LEN = 0;  // ×´Ì¬½×¶ÎÍê³ÉÖĞ¶Ï»òÕßÊÇÇ¿ÖÆÉÏ´«0³¤¶ÈÊı¾İ°ü½áÊø¿ØÖÆ´«Êä
+                            R8_UEP0_T_LEN = 0;  // çŠ¶æ€é˜¶æ®µå®Œæˆä¸­æ–­æˆ–è€…æ˜¯å¼ºåˆ¶ä¸Šä¼ 0é•¿åº¦æ•°æ®åŒ…ç»“æŸæ§åˆ¶ä¼ è¾“
                             R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
                             break;
                     }
@@ -268,7 +268,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
             }
             R8_USB_INT_FG = RB_UIF_TRANSFER;
         }
-        if (R8_USB_INT_ST & RB_UIS_SETUP_ACT)  // Setup°ü´¦Àí
+        if (R8_USB_INT_ST & RB_UIS_SETUP_ACT)  // SetupåŒ…å¤„ç†
         {
             R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_NAK;
             SetupReqLen = pSetupReqPak->wLength;
@@ -279,9 +279,9 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
             errflag = 0;
             if ((pSetupReqPak->bRequestType & USB_REQ_TYP_MASK) != USB_REQ_TYP_STANDARD)
             {
-                errflag = 0xFF; /* ·Ç±ê×¼ÇëÇó */
+                errflag = 0xFF; /* éæ ‡å‡†è¯·æ±‚ */
             }
-            else                /* ±ê×¼ÇëÇó */
+            else                /* æ ‡å‡†è¯·æ±‚ */
             {
                 switch (IAP_SetupReqCode)
                 {
@@ -320,7 +320,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                                         len = MyLangDescr[0];
                                         break;
                                     default:
-                                        errflag = 0xFF;  // ²»Ö§³ÖµÄ×Ö·û´®ÃèÊö·û
+                                        errflag = 0xFF;  // ä¸æ”¯æŒçš„å­—ç¬¦ä¸²æè¿°ç¬¦
                                         break;
                                 }
                             }
@@ -332,7 +332,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                         }
                         if (SetupReqLen > len)
                         {
-                            SetupReqLen = len;  // Êµ¼ÊĞèÉÏ´«×Ü³¤¶È
+                            SetupReqLen = len;  // å®é™…éœ€ä¸Šä¼ æ€»é•¿åº¦
                         }
                         len = (SetupReqLen >= DevEP0SIZE) ? DevEP0SIZE : SetupReqLen;
                         my_memcpy (EP0_Databuf, IAP_pDescr, len);
@@ -358,7 +358,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
 
                     case USB_CLEAR_FEATURE:
                     {
-                        if ((pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK) == USB_REQ_RECIP_ENDP)  // ¶Ëµã
+                        if ((pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK) == USB_REQ_RECIP_ENDP)  // ç«¯ç‚¹
                         {
                             switch ((pSetupReqPak->wIndex) & 0xff)
                             {
@@ -375,7 +375,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                                     R8_UEP1_CTRL = (R8_UEP1_CTRL & ~(RB_UEP_R_TOG | MASK_UEP_R_RES)) | UEP_R_RES_ACK;
                                     break;
                                 default:
-                                    errflag = 0xFF;  // ²»Ö§³ÖµÄ¶Ëµã
+                                    errflag = 0xFF;  // ä¸æ”¯æŒçš„ç«¯ç‚¹
                                     break;
                             }
                         }
@@ -408,24 +408,24 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
                         break;
                 }
             }
-            if (errflag == 0xff)  // ´íÎó»ò²»Ö§³Ö
+            if (errflag == 0xff)  // é”™è¯¯æˆ–ä¸æ”¯æŒ
             {
                 //  IAP_SetupReqCode = 0xFF;
                 R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_STALL | UEP_T_RES_STALL;  // STALL
             }
             else
             {
-                if (chtype & 0x80)  // ÉÏ´«
+                if (chtype & 0x80)  // ä¸Šä¼ 
                 {
                     len = (SetupReqLen > DevEP0SIZE) ? DevEP0SIZE : SetupReqLen;
                     SetupReqLen -= len;
                 }
                 else
                 {
-                    len = 0;  // ÏÂ´«
+                    len = 0;  // ä¸‹ä¼ 
                 }
                 R8_UEP0_T_LEN = len;
-                R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;  // Ä¬ÈÏÊı¾İ°üÊÇDATA1
+                R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;  // é»˜è®¤æ•°æ®åŒ…æ˜¯DATA1
             }
         }
         R8_USB_INT_FG = RB_UIF_TRANSFER;
@@ -441,7 +441,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
     }
     else if (intflag & RB_UIF_SUSPEND)
     {
-        // »½ĞÑ
+        // å”¤é†’
         R8_USB_INT_FG = RB_UIF_SUSPEND;
     }
     else
@@ -453,7 +453,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
 /*********************************************************************
  * @fn      myDevEP2_OUT_Deal
  *
- * @brief   IAP USBÊı¾İ´¦Àíº¯Êı£¬·ÅÈëramÖĞÔËĞĞÌáÉıËÙ¶È.
+ * @brief   IAP USBæ•°æ®å¤„ç†å‡½æ•°ï¼Œæ”¾å…¥ramä¸­è¿è¡Œæå‡é€Ÿåº¦.
  *
  * @param   None.
  *
@@ -461,7 +461,7 @@ __attribute__ ((section (".highcode"))) void USB_DevTransProcess (void)
  */
 __attribute__ ((section (".highcode"))) void myDevEP2_OUT_Deal (uint8_t l)
 {
-    /* ÓÃ»§¿É×Ô¶¨Òå */
+    /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
     uint8_t s = 0;
     uint32_t addr;
     switch (g_iap_cmd.other.buf[0])
@@ -471,7 +471,7 @@ __attribute__ ((section (".highcode"))) void myDevEP2_OUT_Deal (uint8_t l)
             {
                 if (g_buf_write_ptr != 0)
                 {
-                    g_buf_write_ptr = ((g_buf_write_ptr + 3) & (~3));  // ËÄ×Ö½Ú¶ÔÆë
+                    g_buf_write_ptr = ((g_buf_write_ptr + 3) & (~3));  // å››å­—èŠ‚å¯¹é½
                     s = FLASH_ROM_WRITE (g_flash_write_ptr, (PUINT32)g_write_buf, g_buf_write_ptr);
                     g_buf_write_ptr = 0;
                 }
@@ -484,19 +484,19 @@ __attribute__ ((section (".highcode"))) void myDevEP2_OUT_Deal (uint8_t l)
                 {
                     s = FLASH_ROM_WRITE (g_flash_write_ptr, (PUINT32)g_write_buf, 256);
                     g_flash_write_ptr += 256;
-                    g_buf_write_ptr = g_buf_write_ptr - 256;                      // ³¬³öµÄ³¤¶È
-                    my_memcpy (g_write_buf, g_write_buf + 256, g_buf_write_ptr);  // ±£´æÊ£ÏÂµÄiap_cmd.program.buf + g_iap_cmd.program.len - g_buf_write_ptr
+                    g_buf_write_ptr = g_buf_write_ptr - 256;                      // è¶…å‡ºçš„é•¿åº¦
+                    my_memcpy (g_write_buf, g_write_buf + 256, g_buf_write_ptr);  // ä¿å­˜å‰©ä¸‹çš„iap_cmd.program.buf + g_iap_cmd.program.len - g_buf_write_ptr
                 }
             }
             myDevEP2_IN_Deal (s);
             break;
         case CMD_IAP_ERASE:
-            // ÕâÀï¿ÉÒÔÌí¼ÓµØÖ·ÅĞ¶Ï£¬Ò²¿ÉÒÔÖ±½Ó²Á³ıÖ¸¶¨Î»ÖÃ
+            // è¿™é‡Œå¯ä»¥æ·»åŠ åœ°å€åˆ¤æ–­ï¼Œä¹Ÿå¯ä»¥ç›´æ¥æ“¦é™¤æŒ‡å®šä½ç½®
             addr = (g_iap_cmd.erase.addr[0] | (uint32_t)g_iap_cmd.erase.addr[1] << 8 | (uint32_t)g_iap_cmd.erase.addr[2] << 16 | (uint32_t)g_iap_cmd.erase.addr[3] << 24);
             if (addr == APP_CODE_START_ADDR)
             {
                 s = FLASH_ROM_ERASE (APP_CODE_START_ADDR, APP_CODE_END_ADDR - APP_CODE_START_ADDR);
-                g_buf_write_ptr = 0;  // ¼ÆÊıÇåÁã
+                g_buf_write_ptr = 0;  // è®¡æ•°æ¸…é›¶
                 g_flash_write_ptr = APP_CODE_START_ADDR;
             }
             else
@@ -512,7 +512,7 @@ __attribute__ ((section (".highcode"))) void myDevEP2_OUT_Deal (uint8_t l)
             myDevEP2_IN_Deal (s);
             break;
         case CMD_IAP_END:
-            /*½áÊøÉı¼¶£¬¸´Î»USB£¬Ìø×ªµ½app*/
+            /*ç»“æŸå‡çº§ï¼Œå¤ä½USBï¼Œè·³è½¬åˆ°app*/
             R8_USB_CTRL = RB_UC_RESET_SIE;
             R16_PIN_ANALOG_IE &= ~(RB_PIN_USB_DP_PU | RB_PIN_USB_IE);
             DelayMs (10);
@@ -526,8 +526,8 @@ __attribute__ ((section (".highcode"))) void myDevEP2_OUT_Deal (uint8_t l)
 
 /*******************************************************************************
  * Function Name  : myDevEP2_IN_Deal
- * Description    : ¶Ëµã2Êı¾İÉÏ´«
- * Input          : l: ÉÏ´«Êı¾İ³¤¶È(<64B)
+ * Description    : ç«¯ç‚¹2æ•°æ®ä¸Šä¼ 
+ * Input          : l: ä¸Šä¼ æ•°æ®é•¿åº¦(<64B)
  * Return         : None
  *******************************************************************************/
 __attribute__ ((section (".highcode"))) void myDevEP2_IN_Deal (uint8_t s)
@@ -541,7 +541,7 @@ __attribute__ ((section (".highcode"))) void myDevEP2_IN_Deal (uint8_t s)
 /*********************************************************************
  * @fn      my_memcpy
  *
- * @brief   Êı¾İ¿½±´º¯Êı,³ÌĞò·ÅramÖĞÔËĞĞ£¬ÌáÉıËÙ¶È
+ * @brief   æ•°æ®æ‹·è´å‡½æ•°,ç¨‹åºæ”¾ramä¸­è¿è¡Œï¼Œæå‡é€Ÿåº¦
  *
  * @param   None.
  *

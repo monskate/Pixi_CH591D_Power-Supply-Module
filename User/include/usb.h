@@ -1,7 +1,7 @@
 #ifndef _USB_CDC_H_
 #define _USB_CDC_H_
 
-// ²âÊÔ
+// æµ‹è¯•
 #define USB_PRINT_DEBUG 1
  
 #include "CH59x_common.h"

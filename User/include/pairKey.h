@@ -3,11 +3,11 @@
 
 #include "CH59x_common.h"
 
-// ³õÊ¼»¯GPIO¿Ú 
+// åˆå§‹åŒ–GPIOå£ 
 void Key_Init(void);
 
 
-//»ñÈ¡ À¶ÑÀÅä¶Ô°´¼ü×´Ì¬ 0:°´ÏÂ
+//è·å– è“ç‰™é…å¯¹æŒ‰é”®çŠ¶æ€ 0:æŒ‰ä¸‹
 uint8_t get_pairKey();
 
 
